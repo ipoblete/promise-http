@@ -8,23 +8,7 @@ describe('getCharactersApp', () => {
     return request(getCharactersApp)
       .get('/characters')
       .then(res => {
-        expect(res.text).toEqual(`
-          <html>
-            <body>
-              <div>
-                <li>
-                  Rick Sanchez
-                </li>
-                <li>
-                  Morty Smith
-                </li>
-                <li>
-                  Summer Smith
-                </li>
-              </div>
-            </body>
-          </html>
-        `);
+        expect(res.text).toEqual('<html><body><li>Rick Sanchez</li><li>Morty Smith</li><li>Summer Smith</li></body></html>');
       });
   });
 });
