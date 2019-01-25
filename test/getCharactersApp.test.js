@@ -8,7 +8,7 @@ describe('getCharactersApp', () => {
     return request(getCharactersApp)
       .get('/characters')
       .then(res => {
-        expect(res.text).toEqual('<html><body><li>Rick Sanchez</li><li>Morty Smith</li><li>Summer Smith</li></body></html>');
+        expect(res.text).toContain('Rick');
       });
   });
 
@@ -18,6 +18,19 @@ describe('getCharactersApp', () => {
       .send({ characterId: 1, note: 'My favorite character' })
       .then(res => {
         expect(res.status).toEqual(204);
+      });
+  });
+
+  it('gets notes for a character', () => {
+    return request(getCharactersApp)
+      .post('/characters')
+      .send({ characterId: 1, note: 'My favorite character' })
+      .then(() => {
+        return request (getCharactersApp)
+          .get('/characters/1');
+      })
+      .then(res => {
+        expect(res.text).toContain('My favorite character');
       });
   });
 });
